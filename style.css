@@ -1,0 +1,17 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+ion-icon {
+    --ionicon-stroke-width: 50px;
+}
+
+.green {
+  background-color: green;
+}
+
+.red {
+    background-color: red;
+}
