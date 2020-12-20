@@ -23,11 +23,20 @@ let cardRow = document.getElementsByClassName('card-row');
 
 if(JSON.parse(localStorage.getItem('itemHistory')) === null) {}
 
-searchBtn.on('click', function(x) {
+searchBtn.on("click", function(x) {
+    x.preventDefault();
     if(searchInput.val() === '') {
         alert('Required: Enter City');
         return;
     }
+    console.log('working??')
+    getWeatherCity(searchInput.val());
+});
+
+$(document).on("click", ".historyEnter", () => {
+    console.log('clicked on item history')
+    let thisElem = $(this);
+    getWeatherCity(thisElem.text());
 })
 
 function getHistory() {}
