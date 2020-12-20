@@ -106,11 +106,11 @@ input {
     margin-left: 5%;
 }
 
-.historyItems {
+.itemHistory {
     margin-top: 20px;
 }
 
-.historyItems:nth-child() {
+.itemHistory:nth-child() {
     margin-top: 20px;
 }
 
