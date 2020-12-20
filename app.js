@@ -18,3 +18,15 @@ let windSpeed = document.getElementsByClassName('windSpeed');
 let uvIndex = document.getElementsByClassName('uvIndex');
 let cardRow = document.getElementsByClassName('card-row');
 
+//create functions 
+//if statement for localStorage where I have to parse the data
+
+if(JSON.parse(localStorage.getItem('itemHistory')) === null) {}
+
+searchBtn.on('click', function(x) {})
+
+function getHistory() {}
+function getWeatherData() {}
+function getWeatherCity() {}
+function getWeekForecast() {}
+function forecastCards() {}
