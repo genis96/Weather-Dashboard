@@ -102,12 +102,16 @@ function getWeekForecast() {}
 
 
 function forecastCards(date, icon, temp, humidity) {
-    
+    let weeklyCard = $('<div>').attr('class', 'five-day-card');
+    let cardDate = $('<h3>').attr('class', 'card-text');
+    let cardIcon = $('<img>').attr('class', 'iconWeather');
+    let cardTemp = $('<p>').attr('class', 'card-text');
+    let cardHumidity = $('<p>').attr('class', 'card-text');
 
     cardRow.append(fiveDayCard);
     cardDate.text(date);
-    CardIcon.attr('src', icon);
+    cardIcon.attr('src', icon);
     cardTemp.text(`Temp: ${temp} °F`);
     cardHumidity.text(`Humidity: ${humidity}%`);
-    weeklyCard.append(cardDate, CardIcon, cardTemp, cardHumidity);   
+    weeklyCard.append(cardDate, cardIcon, cardTemp, cardHumidity);   
 }
