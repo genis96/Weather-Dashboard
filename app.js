@@ -98,35 +98,53 @@ function getWeather(chosenCity) {
                     localStorage.setItem('searchHistory', JSON.stringify(historyArr));
                     let getWeatherIcon = `https:///openweathermap.org/img/w/${cityDataObj.cityWeatherIconName}.png`;
                     getWeather(cityDataObj.cityName, cityDataObj.cityTemp, cityDataObj.cityHumidity, cityDataObj.cityWindSpeed, getWeatherIcon, uvData.value);
+
                 } else {
-                    console.log('city has history now')
+                    console.log('city has history now');
+                    let getWeatherIcon = `https:///openweathermap.org/img/w/${cityDataObj.cityWeatherIconName}.png`;
+                    getWeather(cityDataObj.cityName, cityDataObj.cityTemp, cityDataObj.cityHumidity, cityDataObj.cityWindSpeed, getWeatherIcon, uvData.value);
+                    getHistory(cityDataObj.cityName);
+                } 
+            } else {
+                let historyArr = JSON.parse(localStorage.getItem('searchHistory'));
+                if(historyArr.indexOf(cityDataObj.cityName) === -1) {
+                    historyArr.push(cityDataObj.cityName);
+                    // store and save
+                    localStorage.setItem('searchHistory', JSON.stringify(historyArr));
+                    let getWeatherIcon = `https:///openweathermap.org/img/w/${cityDataObj.cityWeatherIconName}.png`;
+                    getWeather(cityDataObj.cityName, cityDataObj.cityTemp, cityDataObj.cityHumidity, cityDataObj.cityWindSpeed, getWeatherIcon, uvData.value);
+                    getHistory(cityDataObj.cityName);
+                } else {
+                    console.log('city has history now');
+                    let getWeatherIcon = `https:///openweathermap.org/img/w/${cityDataObj.cityWeatherIconName}.png`;
+                    getWeather(cityDataObj.cityName, cityDataObj.cityTemp, cityDataObj.cityHumidity, cityDataObj.cityWindSpeed, getWeatherIcon, uvData.value);
                 }
             }
         })
-    })
-}
+    });
+    getWeekForecast();
 
-getWeekForecast();
-function getWeekForecast() {
-    cardRow.empty();
-    let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&APPID=${apiKey}&units=imperial`;
-    $.ajax({
-        url: apiUrl,
-        method: 'GET'
-    }).then(function(fiveDayForecast) {
-        for(let i = 0; i != fiveDayForecast.list.length; i+=8) {
-            let cityDataObj = {
-                date: fiveDayForecast.list[i].dt_txt,
-                icon: fiveDayForecast.list[i].weather[0].icon,
-                temp: fiveDayForecast.list[i].main.temp,
-                humidity: fiveDayForecast.list[i].main.humidity
+    function getWeekForecast() {
+        cardRow.empty();
+        let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&APPID=${apiKey}&units=imperial`;
+        $.ajax({
+            url: apiUrl,
+            method: 'GET'
+        }).then(function(fiveDayForecast) {
+            for(let i = 0; i != fiveDayForecast.list.length; i+=8) {
+                let cityDataObj = {
+                    date: fiveDayForecast.list[i].dt_txt,
+                    icon: fiveDayForecast.list[i].weather[0].icon,
+                    temp: fiveDayForecast.list[i].main.temp,
+                    humidity: fiveDayForecast.list[i].main.humidity
+                }
+                let theDate = cityDataObj.date;
+                let dateTrim = theDate.substring(0, 10);
+                let theWeatherIcon = `https:///openweathermap.org/img/w/${cityDataObj.icon}.png`;
+                forecastCards(dateTrim, theWeatherIcon, cityDataObj.temp, cityDataObj.humidity);
             }
-            let theDate = cityDataObj.date;
-            let dateTrim = theDate.substring(0, 10);
-            let theWeatherIcon = `https:///openweathermap.org/img/w/${cityDataObj.icon}.png`;
-            forecastCards(dateTrim, theWeatherIcon, cityDataObj.temp, cityDataObj.humidity);
-        }
-    })
+        })
+    }
 }
 
 
