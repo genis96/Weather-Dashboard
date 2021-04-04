@@ -91,13 +91,22 @@ function getWeather(chosenCity) {
         }).then(function(uvData) {
             if(JSON.parse(localStorage.getItem('searchHistory')) == null) {
                 let historyArr = [];
-
+                // prevent adding city more than once 
+                if(historyArr.indexOf(cityDataObj.cityName) === -1) {
+                    historyArr.push(cityDataObj.cityName);
+                    // store and save
+                    localStorage.setItem('searchHistory', JSON.stringify(historyArr));
+                    let getWeatherIcon = `https:///openweathermap.org/img/w/${cityDataObj.cityWeatherIconName}.png`;
+                    getWeather(cityDataObj.cityName, cityDataObj.cityTemp, cityDataObj.cityHumidity, cityDataObj.cityWindSpeed, getWeatherIcon, uvData.value);
+                } else {
+                    console.log('city has history now')
+                }
             }
         })
     })
 }
 
-// getWeekForecast();
+getWeekForecast();
 function getWeekForecast() {
     cardRow.empty();
     let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&APPID=${apiKey}&units=imperial`;
