@@ -83,9 +83,31 @@ function getWeather(chosenCity) {
             cityUv: data.coord,
             cityWeatherIconName: data.weather[0].icon
         }
+
+        let apiUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${cityDataObj.cityUv.lat}&lon=${cityDataObj.cityUv.lon}&APPID=${apiKey}&units=imperial`
+        $.ajax({
+            url: apiUrl,
+            method: 'GET'
+        }).then(function(uvData) {
+            if(JSON.parse(localStorage.getItem('searchHistory')) == null) {
+                let historyArr = [];
+
+            }
+        })
     })
 }
 
 
 function getWeekForecast() {}
-function forecastCards() {}
+
+
+function forecastCards(date, icon, temp, humidity) {
+    
+
+    cardRow.append(fiveDayCard);
+    cardDate.text(date);
+    CardIcon.attr('src', icon);
+    cardTemp.text(`Temp: ${temp} °F`);
+    cardHumidity.text(`Humidity: ${humidity}%`);
+    weeklyCard.append(cardDate, CardIcon, cardTemp, cardHumidity);   
+}
