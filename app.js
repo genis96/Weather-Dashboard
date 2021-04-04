@@ -23,7 +23,12 @@ let today = mm + '/' + dd + '/' + yyyy;
 //create functions 
 //if statement for localStorage where I have to parse the data
 
-if(JSON.parse(localStorage.getItem('itemHistory')) === null) {}
+if(JSON.parse(localStorage.getItem('itemHistory')) === null) {
+    console.log('history not found')
+} else {
+    console.log('history loaded');
+    getHistory();
+}
 
 searchBtn.on("click", function(x) {
     x.preventDefault();
@@ -32,17 +37,27 @@ searchBtn.on("click", function(x) {
         return;
     }
     console.log('working??')
-    getWeatherCity(searchInput.val());
+    getWeather(searchInput.val());
 });
 
-$(document).on("click", ".historyEnter", () => {
+$(document).on('click', '.historyEntry', () => {
     console.log('clicked on item history')
     let thisElem = $(this);
-    getWeatherCity(thisElem.text());
+    getWeather(thisElem.text());
 })
 
-function getHistory() {}
+function getHistory(cityName) {
+    itemHistory.empty();
+    let historyArr = JSON.parse(localStorage.getItem('itemHistory'));
+    for(let i = 0; i < historyArr.length; i++) {
+        let newListItem = $('<li>').attr('class', 'historyEntry');
+        newListItem.text(historyArr[i]);
+        historyArr.prepend(newListItem);
+    }
+}
+
+
 function getWeatherData() {}
-function getWeatherCity() {}
+function getWeather() {}
 function getWeekForecast() {}
 function forecastCards() {}
