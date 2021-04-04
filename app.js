@@ -97,8 +97,24 @@ function getWeather(chosenCity) {
     })
 }
 
-
-function getWeekForecast() {}
+// getWeekForecast();
+function getWeekForecast() {
+    cardRow.empty();
+    let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&APPID=${apiKey}&units=imperial`;
+    $.ajax({
+        url: apiUrl,
+        method: 'GET'
+    }).then(function(fiveDayForecast) {
+        for(let i = 0; i != fiveDayForecast.list.length; i+=8) {
+            let cityDataObj = {
+                date: fiveDayForecast.list[i].dt_txt,
+                icon: fiveDayForecast.list[i].weather[0].icon,
+                temp: fiveDayForecast.list[i].main.temp,
+                humidity: fiveDayForecast.list[i].main.humidity
+            }
+        }
+    })
+}
 
 
 function forecastCards(date, icon, temp, humidity) {
