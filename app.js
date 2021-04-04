@@ -2,7 +2,7 @@ let apiKey = '78143e709d4093268bfac14691b1a091';
 let searchInput = $('.searchInput');
 let searchBtn = $('.searchBtn');
 //search 
-let cityName = $('.cityName');
+let cityNamed = $('.cityName');
 let currDate = $('.currDate');
 let weatherIcon = $('.weatherIcon');
 let itemHistory = $('.itemHistory');
@@ -58,8 +58,14 @@ function getHistory(cityName) {
 }
 
 
-function getWeatherData() {
-    
+function getWeatherData(cityName, cityTemp, cityHumidity, cityWindSpeed, cityWeatherIcon, uvVal) {
+    cityNamed.text(cityName);
+    currDate.text(`(${today})`);
+    temp.text(`Temperature: ${cityTemp} °F`);
+    humidity.text(`Humidity: ${cityHumidity}%`);
+    windSpeed.text(`Wind Speed: ${cityWindSpeed} MPH`);
+    uvIndex.text(`UV Index: ${uvVal}`);
+    weatherIcon.attr('src', cityWeatherIcon);
 }
 
 
