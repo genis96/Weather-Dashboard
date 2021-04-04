@@ -7,10 +7,10 @@ let currDate = $('.currDate');
 let weatherIcon = $('.weatherIcon');
 let itemHistory = $('.itemHistory');
 // results
-let temp = $('.temp');
-let humidity = $('.humidity');
-let windSpeed = $('.windSpeed');
-let uvIndex = $('.uvIndex');
+let tempClass = $('.temp');
+let humidityClass = $('.humidity');
+let windSpeedClass = $('.windSpeed');
+let uvIndexClass = $('.uvIndex');
 let cardRow = $('.card-row');
 
 //get days/days/year
@@ -18,13 +18,12 @@ let today = new Date();
 let dd = String(today.getDate()).padStart(2, '0');
 let mm = String(today.getMonth() + 1).padStart(2, '0');
 let yyyy = today.getFullYear();
-let today = mm + '/' + dd + '/' + yyyy;
+today = mm + '/' + dd + '/' + yyyy;
 
 //create functions 
 //if statement for localStorage where I have to parse the data
 
-// itemHistory changed name to searchHistory
-if(JSON.parse(localStorage.getItem('searchHistory')) === null) {
+if(JSON.parse(localStorage.getItem('searchHistory')) == null) {
     console.log('history not found')
 } else {
     console.log('history loaded');
@@ -49,11 +48,11 @@ $(document).on('click', '.historyEnter', () => {
 
 function getHistory(cityName) {
     itemHistory.empty();
-    let historyArr = JSON.parse(localStorage.getItem('searcHistory'));
+    let historyArr = JSON.parse(localStorage.getItem('searchHistory'));
     for(let i = 0; i < historyArr.length; i++) {
         let newListItem = $('<li>').attr('class', 'historyEnter');
         newListItem.text(historyArr[i]);
-        historyArr.prepend(newListItem);
+        itemHistory.prepend(newListItem);
     }
 }
 
@@ -61,10 +60,10 @@ function getHistory(cityName) {
 function getWeatherData(cityName, cityTemp, cityHumidity, cityWindSpeed, cityWeatherIcon, uvVal) {
     cityNamed.text(cityName);
     currDate.text(`(${today})`);
-    temp.text(`Temperature: ${cityTemp} °F`);
-    humidity.text(`Humidity: ${cityHumidity}%`);
-    windSpeed.text(`Wind Speed: ${cityWindSpeed} MPH`);
-    uvIndex.text(`UV Index: ${uvVal}`);
+    tempClass.text(`Temperature: ${cityTemp} °F`);
+    humidityClass.text(`Humidity: ${cityHumidity}%`);
+    windSpeedClass.text(`Wind Speed: ${cityWindSpeed} MPH`);
+    uvIndexClass.text(`UV Index: ${uvVal}`);
     weatherIcon.attr('src', cityWeatherIcon);
 }
 
