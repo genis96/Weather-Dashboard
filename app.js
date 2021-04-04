@@ -112,6 +112,10 @@ function getWeekForecast() {
                 temp: fiveDayForecast.list[i].main.temp,
                 humidity: fiveDayForecast.list[i].main.humidity
             }
+            let theDate = cityDataObj.date;
+            let dateTrim = theDate.substring(0, 10);
+            let theWeatherIcon = `https:///openweathermap.org/img/w/${cityDataObj.icon}.png`;
+            forecastCards(dateTrim, theWeatherIcon, cityDataObj.temp, cityDataObj.humidity);
         }
     })
 }
