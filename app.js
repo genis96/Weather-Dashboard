@@ -69,6 +69,23 @@ function getWeatherData(cityName, cityTemp, cityHumidity, cityWindSpeed, cityWea
 }
 
 
-function getWeather() {}
+function getWeather(chosenCity) {
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${chosenCity}&APPID=${apiKey}&units=imperial`;
+    $.ajax({
+        url: apiUrl,
+        method: 'GET'
+    }).then(function(data) {
+        let cityDataObj = {
+            cityName: data.name,
+            cityTemp: data.main.temp,
+            cityHumidity: data.main.humidity,
+            cityWindSpeed: data.wind.speed,
+            cityUv: data.coord,
+            cityWeatherIconName: data.weather[0].icon
+        }
+    })
+}
+
+
 function getWeekForecast() {}
 function forecastCards() {}
