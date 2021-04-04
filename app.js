@@ -122,7 +122,6 @@ function getWeather(chosenCity) {
         })
     });
     getWeekForecast();
-
     function getWeekForecast() {
         cardRow.empty();
         let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&APPID=${apiKey}&units=imperial`;
@@ -154,7 +153,7 @@ function forecastCards(date, icon, temp, humidity) {
     let cardTemp = $('<p>').attr('class', 'card-text');
     let cardHumidity = $('<p>').attr('class', 'card-text');
 
-    cardRow.append(fiveDayCard);
+    cardRow.append(weeklyCard);
     cardDate.text(date);
     cardIcon.attr('src', icon);
     cardTemp.text(`Temp: ${temp} °F`);
