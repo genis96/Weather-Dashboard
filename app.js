@@ -4,7 +4,7 @@ let searchBtn = $('.searchBtn');
 //search 
 let cityNamed = $('.cityName');
 let currDate = $('.currDate');
-let weatherIcon = $('.weatherIcon');
+let weatherIconClass = $('.weatherIcon');
 let itemHistory = $('.itemHistory');
 // results
 let tempClass = $('.temp');
@@ -64,12 +64,12 @@ function getWeatherData(cityName, cityTemp, cityHumidity, cityWindSpeed, cityWea
     humidityClass.text(`Humidity: ${cityHumidity}%`);
     windSpeedClass.text(`Wind Speed: ${cityWindSpeed} MPH`);
     uvIndexClass.text(`UV Index: ${uvVal}`);
-    weatherIcon.attr('src', cityWeatherIcon);
+    weatherIconClass.attr('src', cityWeatherIcon);
 }
 
 
 function getWeather(chosenCity) {
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${chosenCity}&APPID=${apiKey}&units=imperial`;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${chosenCity}&units=imperial&appid=${apiKey}`
     $.ajax({
         url: apiUrl,
         method: 'GET'
@@ -125,6 +125,7 @@ function getWeather(chosenCity) {
     function getWeekForecast() {
         cardRow.empty();
         let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&APPID=${apiKey}&units=imperial`;
+        
         $.ajax({
             url: apiUrl,
             method: 'GET'
