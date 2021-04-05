@@ -73,14 +73,14 @@ function getWeather(chosenCity) {
     $.ajax({
         url: apiUrl,
         method: 'GET'
-    }).then(function(data) {
+    }).then(function(cityData) {
         let cityDataObj = {
-            cityName: data.name,
-            cityTemp: data.main.temp,
-            cityHumidity: data.main.humidity,
-            cityWindSpeed: data.wind.speed,
-            cityUv: data.coord,
-            cityWeatherIconName: data.weather[0].icon
+            cityName: cityData.name,
+            cityTemp: cityData.main.temp,
+            cityHumidity: cityData.main.humidity,
+            cityWindSpeed: cityData.wind.speed,
+            cityUv: cityData.coord,
+            cityWeatherIconName: cityData.weather[0].icon
         }
 
         let apiUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${cityDataObj.cityUv.lat}&lon=${cityDataObj.cityUv.lon}&APPID=${apiKey}&units=imperial`
@@ -149,7 +149,7 @@ function getWeather(chosenCity) {
 function forecastCards(date, icon, temp, humidity) {
     let weeklyCard = $('<div>').attr('class', 'five-day-card');
     let cardDate = $('<h3>').attr('class', 'card-text');
-    let cardIcon = $('<img>').attr('class', 'iconWeather');
+    let cardIcon = $('<img>').attr('class', 'weatherIcon');
     let cardTemp = $('<p>').attr('class', 'card-text');
     let cardHumidity = $('<p>').attr('class', 'card-text');
 
