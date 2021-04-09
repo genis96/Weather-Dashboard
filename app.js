@@ -40,7 +40,7 @@ searchBtn.on('click', function(x) {
     getWeather(searchInput.val());
 });
 
-$(document).on('click', '.historyEnter', () => {
+$(document).on('click', '.historyEnter', function() {
     console.log('clicked on item history')
     let thisElem = $(this);
     getWeather(thisElem.text());
@@ -61,7 +61,7 @@ function getWeatherData(cityName, cityTemp, cityHumidity, cityWindSpeed, cityWea
     cityNamed.text(cityName);
     currDate.text(`(${today})`);
     tempClass.text(`Temperature: ${cityTemp} °F`);
-    humidityClass.text(`Humidity: ${cityHumidity}%`);
+    humidityClass.text(`Humidity: ${cityHumidity} %`);
     windSpeedClass.text(`Wind Speed: ${cityWindSpeed} MPH`);
     uvIndexClass.text(`UV Index: ${uvVal}`);
     weatherIconClass.attr('src', cityWeatherIcon);
@@ -69,7 +69,7 @@ function getWeatherData(cityName, cityTemp, cityHumidity, cityWindSpeed, cityWea
 
 
 function getWeather(chosenCity) {
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${chosenCity}&units=imperial&appid=${apiKey}`
+    let apiUrl = `http://api.openweathermap.org/data/2.5/forecast?id=524901&appid={apiKey}`
     $.ajax({
         url: apiUrl,
         method: 'GET'
@@ -84,11 +84,12 @@ function getWeather(chosenCity) {
         }
 
         let apiUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${cityDataObj.cityUv.lat}&lon=${cityDataObj.cityUv.lon}&APPID=${apiKey}&units=imperial`
+        
         $.ajax({
             url: apiUrl,
             method: 'GET'
         }).then(function(uvData) {
-            if(JSON.parse(localStorage.getItem('searchHistory')) == null) {
+            if(JSON.parse(localStorage.getItem('searchHistory')) === null) {
                 let historyArr = [];
                 // prevent adding city more than once 
                 if(historyArr.indexOf(cityDataObj.cityName) === -1) {
